@@ -12,7 +12,7 @@ The next two sessions will justify the need for edge computing in IoT and descri
 
 ### Jueves 27 de enero 2022:
 * 10:00 – 11:30 Seminario técnico (Teoría)
-    - slides: intro IoT, LoRaWAN, MQTT
+    - [A brief introduction to IoT, LoRaWAN, and MQTT](https://github.com/pmanzoni/iotandendge/blob/main/slides/IoT_LoRaWAN_MQTT.pdf)
 * 15:30 – 17:30 Seminario técnico (Laboratorio)
     - [LoRaWAN and MQTT](https://hackmd.io/@capap-h2020/lorawanmqtt)
 
