@@ -18,6 +18,6 @@ The next two sessions will justify the need for edge computing in IoT and descri
 
 Viernes 28 de enero 2022
 * 10:00 – 11:30 Seminario técnico (Teoría)
-    - TinyML with Tensorflow light and Arduino
+    - [TinyML with Tensorflow light and Arduino](https://hackmd.io/@capap-h2020/tinymltlight)
 * 12:00 – 13:30 Seminario técnico (Laboratorio)
     - TinyML with edgeimpulse
