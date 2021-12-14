@@ -5,12 +5,12 @@
 #include <math.h>
 #include <PDM.h>
 
-#define SERIAL_PLOT_MODE  false  // set to true to test sampler in serial plotter
-#define PDM_SOUND_GAIN    255    // sound gain of PDM mic
+#define SERIAL_PLOT_MODE  true  // set to true to test sampler in serial plotter
 #define PDM_BUFFER_SIZE   256    // buffer size of PDM mic
+#define PDM_SOUND_GAIN    128    // sound gain of PDM mic
 
-#define SAMPLE_THRESHOLD  150    // RMS threshold to trigger sampling
-#define FEATURE_SIZE      32     // sampling size of one voice instance
+#define SAMPLE_THRESHOLD  200    // RMS threshold to trigger sampling
+#define FEATURE_SIZE      64     // sampling size of one voice instance
 #define SAMPLE_DELAY      20     // delay time (ms) between sampling
 
 #define TOTAL_SAMPLE      50     // total number of voice instance
@@ -66,15 +66,17 @@ void setup() {
 void loop() {
 
   // waiting until sampling triggered
-  while (rms < SAMPLE_THRESHOLD);
+  // while (rms < SAMPLE_THRESHOLD);
 
   digitalWrite(LED_BUILTIN, HIGH);
+  delay(3000);
+  digitalWrite(LED_BUILTIN, LOW);
   for (unsigned short i = 0; i < FEATURE_SIZE; i++) {  // sampling
     while (rms < 0);
     feature_data[i] = rms;
     delay(SAMPLE_DELAY);
   }
-  digitalWrite(LED_BUILTIN, LOW);
+  digitalWrite(LED_BUILTIN, HIGH);
 
   // pring out sampling data
   if (!SERIAL_PLOT_MODE) Serial.print("[");
