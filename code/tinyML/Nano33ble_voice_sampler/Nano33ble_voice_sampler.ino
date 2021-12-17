@@ -6,7 +6,7 @@
 #include <math.h>
 #include <PDM.h>
 
-#define SERIAL_PLOT_MODE  true  // set to true to test sampler in serial plotter
+#define SERIAL_PLOT_MODE  false  // set to true to test sampler in serial plotter
 
 #define PDM_BUFFER_SIZE   256    // buffer size of PDM mic
 #define PDM_SOUND_GAIN    128    // sound gain of PDM mic
