@@ -1,39 +1,59 @@
 /*
  * Voice sampler for Arduino Nano 33 BLE Sense by Alan Wang
+ * Adapted by https://pmanzoni.github.io, Feb 2021, Dec 2021, ...
  */
 
 #include <math.h>
 #include <PDM.h>
 
 #define SERIAL_PLOT_MODE  true  // set to true to test sampler in serial plotter
+
 #define PDM_BUFFER_SIZE   256    // buffer size of PDM mic
 #define PDM_SOUND_GAIN    128    // sound gain of PDM mic
 
-#define SAMPLE_THRESHOLD  200    // RMS threshold to trigger sampling
 #define FEATURE_SIZE      64     // sampling size of one voice instance
 #define SAMPLE_DELAY      20     // delay time (ms) between sampling
-
 #define TOTAL_SAMPLE      50     // total number of voice instance
+
+// #define SAMPLE_THRESHOLD  200    // RMS threshold to trigger sampling
 
 
 double feature_data[FEATURE_SIZE];
-volatile double rms;
 unsigned int total_counter = 0;
 
+short sampleBuffer[PDM_BUFFER_SIZE];
+volatile int samplesRead;
+volatile double rms;
+volatile unsigned int sum;
+
+// turns on and off the onboard LED during d msecs, t times
+void flashled(int d, int t) {
+  for (unsigned short i = 0; i < t; i++) {
+    delay(d);
+    digitalWrite(LED_BUILTIN, HIGH);
+    delay(d);
+    digitalWrite(LED_BUILTIN, LOW);
+  }
+}
 
 // callback function for PDM mic
 void onPDMdata() {
 
-  rms = -1;
+  // query the number of bytes available
+  int bytesAvailable = PDM.available();
 
-  short sample_buffer[PDM_BUFFER_SIZE];
-  int bytes_available = PDM.available();
-  PDM.read(sample_buffer, bytes_available);
+  // read into the sample buffer
+  int bytesRead = PDM.read(sampleBuffer, bytesAvailable);
+
+  // 16-bit, 2 bytes per sample
+  samplesRead = bytesRead / 2;
 
   // calculate RMS (root mean square) from sample_buffer
-  unsigned int sum = 0;
-  for (unsigned short i = 0; i < (bytes_available / 2); i++) sum += pow(sample_buffer[i], 2);
-  rms = sqrt(double(sum) / (double(bytes_available) / 2.0));
+  rms = -1;
+  sum = 0;
+  for (unsigned short i = 0; i < (samplesRead); i++) 
+    sum += pow(sampleBuffer[i], 2);
+  rms = sqrt(double(sum) / (double(samplesRead)));
 }
 
 
@@ -46,7 +66,8 @@ void setup() {
   PDM.setBufferSize(PDM_BUFFER_SIZE);
   PDM.setGain(PDM_SOUND_GAIN);
 
-  if (!PDM.begin(1, 16000)) {  // start PDM mic and sampling at 16 KHz
+  // start PDM mic and sampling at 16 KHz
+  if (!PDM.begin(1, 16000)) {  
     Serial.println("Failed to start PDM!");
     while (1);
   }
@@ -54,12 +75,10 @@ void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
 
   // wait 1 second to avoid initial PDM reading
-  delay(900);
-  digitalWrite(LED_BUILTIN, HIGH);
-  delay(100);
-  digitalWrite(LED_BUILTIN, LOW);
+  flashled(500, 1);
 
   if (!SERIAL_PLOT_MODE) Serial.println("# === Voice data start ===");
+  
 }
 
 
@@ -78,8 +97,9 @@ void loop() {
   }
   digitalWrite(LED_BUILTIN, HIGH);
 
-  // pring out sampling data
   if (!SERIAL_PLOT_MODE) Serial.print("[");
+
+  // pring out sampling data
   for (unsigned short i = 0; i < FEATURE_SIZE; i++) {
     if (!SERIAL_PLOT_MODE) {
       Serial.print(feature_data[i]);
@@ -100,30 +120,11 @@ void loop() {
     if (total_counter >= TOTAL_SAMPLE) {
       Serial.println("# === Voice data end ===");
       PDM.end();
-      while (1) {
-        delay(100);
-        digitalWrite(LED_BUILTIN, HIGH);
-        delay(100);
-        digitalWrite(LED_BUILTIN, LOW);
-        delay(100);
-        digitalWrite(LED_BUILTIN, HIGH);
-        delay(100);
-        digitalWrite(LED_BUILTIN, LOW);
-        delay(100);
-        digitalWrite(LED_BUILTIN, HIGH);
-        delay(100);
-        digitalWrite(LED_BUILTIN, LOW);
-      }
+      while (1) flashled(100, 3);
     }
   }
 
   // wait for 2 second after one sampling
-  digitalWrite(LED_BUILTIN, HIGH);
-  delay(500);
-  digitalWrite(LED_BUILTIN, LOW);
-  delay(500);
-  digitalWrite(LED_BUILTIN, HIGH);
-  delay(500);
-  digitalWrite(LED_BUILTIN, LOW);
-  delay(500);
+  flashled(500, 2);
+
 }
