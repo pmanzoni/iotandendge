@@ -1,3 +1,5 @@
+#include <EloquentTinyML.h>
+
 /*
  * Voice classifier for Arduino Nano 33 BLE Sense by Alan Wang
  */
@@ -8,15 +10,15 @@
 #include "tf_lite_model.h"       // TF Lite model file
 
 
-#define PDM_SOUND_GAIN     255   // sound gain of PDM mic
-#define PDM_BUFFER_SIZE    256   // buffer size of PDM mic
+#define PDM_BUFFER_SIZE   256    // buffer size of PDM mic
+#define PDM_SOUND_GAIN    128    // sound gain of PDM mic
 
 #define SAMPLE_THRESHOLD   200   // RMS threshold to trigger sampling
-#define FEATURE_SIZE       32    // sampling size of one voice instance
+#define FEATURE_SIZE       64    // sampling size of one voice instance
 #define SAMPLE_DELAY       20    // delay time (ms) between sampling
 
 #define NUMBER_OF_LABELS   2     // number of voice labels
-const String words[NUMBER_OF_LABELS] = {"Si", "No"};  // words for each label
+const String words[NUMBER_OF_LABELS] = {"Pizza", "Paella"};  // words for each label
 
 
 #define PREDIC_THRESHOLD   0.6   // prediction probability threshold for labels
@@ -26,24 +28,38 @@ const String words[NUMBER_OF_LABELS] = {"Si", "No"};  // words for each label
 #define TENSOR_ARENA_SIZE  4 * 1024
 
 
+
 Eloquent::TinyML::TfLite<NUMBER_OF_INPUTS, NUMBER_OF_OUTPUTS, TENSOR_ARENA_SIZE> tf_model;
+
 float feature_data[FEATURE_SIZE];
-volatile float rms;
+unsigned int total_counter = 0;
+
+short sampleBuffer[PDM_BUFFER_SIZE];
+volatile int samplesRead;
+volatile double rms;
+volatile unsigned int sum;
+
 bool voice_detected;
 
 
 // callback function for PDM mic
 void onPDMdata() {
 
-  rms = -1;
-  short sample_buffer[PDM_BUFFER_SIZE];
-  int bytes_available = PDM.available();
-  PDM.read(sample_buffer, bytes_available);
+  // query the number of bytes available
+  int bytesAvailable = PDM.available();
+
+  // read into the sample buffer
+  int bytesRead = PDM.read(sampleBuffer, bytesAvailable);
+
+  // 16-bit, 2 bytes per sample
+  samplesRead = bytesRead / 2;
 
   // calculate RMS (root mean square) from sample_buffer
-  unsigned int sum = 0;
-  for (unsigned short i = 0; i < (bytes_available / 2); i++) sum += pow(sample_buffer[i], 2);
-  rms = sqrt(float(sum) / (float(bytes_available) / 2.0));
+  rms = -1;
+  sum = 0;
+  for (unsigned short i = 0; i < (samplesRead); i++) 
+    sum += pow(sampleBuffer[i], 2);
+  rms = sqrt(double(sum) / (double(samplesRead)));
 }
 
 void setup() {
@@ -77,15 +93,17 @@ void setup() {
 void loop() {
 
   // waiting until sampling triggered
-  while (rms < SAMPLE_THRESHOLD);
+  // while (rms < SAMPLE_THRESHOLD);
 
   digitalWrite(LED_BUILTIN, HIGH);
-  for (int i = 0; i < FEATURE_SIZE; i++) {  // sampling
+  delay(3000);
+  digitalWrite(LED_BUILTIN, LOW);
+  for (unsigned short i = 0; i < FEATURE_SIZE; i++) {  // sampling
     while (rms < 0);
     feature_data[i] = rms;
     delay(SAMPLE_DELAY);
   }
-  digitalWrite(LED_BUILTIN, LOW);
+  digitalWrite(LED_BUILTIN, HIGH);
 
   // predict voice and put results (probability) for each label in the array
   float prediction[NUMBER_OF_LABELS];
@@ -115,8 +133,12 @@ void loop() {
   if (!voice_detected && !RAW_OUTPUT) Serial.println("Word not recognized\n");
 
   // wait for 1 second after one sampling/prediction
-  delay(900);
-  digitalWrite(LED_BUILTIN, HIGH);
-  delay(100);
+  delay(500);
   digitalWrite(LED_BUILTIN, LOW);
+  delay(500);
+  digitalWrite(LED_BUILTIN, HIGH);
+  delay(500);
+  digitalWrite(LED_BUILTIN, LOW);
+  delay(500);
+  digitalWrite(LED_BUILTIN, HIGH);
 }
