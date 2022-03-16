@@ -16,11 +16,11 @@ En las siguientes dos sesiones, se justificará la necesitad del edge computing 
 * 10:00 – 11:30 Seminario técnico (Teoría)
   * [A brief introduction to IoT, LoRaWAN, and MQTT](https://github.com/pmanzoni/iotandendge/blob/main/slides/IoT_LoRaWAN_MQTT.pdf)
 * 15:30 – 17:30 Seminario técnico (Laboratorio)
-  * [LoRaWAN and MQTT](https://hackmd.io/@capap-h2020/lorawanmqtt)
+  * [LoRaWAN and MQTT hands-on examples](https://hackmd.io/@capap-h2020/lorawanmqtt)
 
 ### Viernes 8 de abril 2022
 * 10:00 – 11:30 Seminario técnico (Teoría)
-  * [A brief introduction to TinyML](https://github.com/pmanzoni/iotandendge/blob/main/slides/TinyML_CAPAH.pdf)
+  * [TinyML:  Machine Learning meets the Internet of Things](https://github.com/pmanzoni/iotandendge/blob/main/slides/TinyML_CAPAH.pdf)
   * [TinyML hands-on examples: TensorFlow Lite Micro](https://hackmd.io/@capap-h2020/tinymltlight)
 * 12:00 – 13:30 Seminario técnico (Laboratorio)
   * [TinyML hands-on examples: Edge Impulse](https://hackmd.io/@capap-h2020/edgeimpulse)
