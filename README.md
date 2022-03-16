@@ -1,20 +1,26 @@
-# IoT and edge computing: stories of a necessary relationship
+# IoT y Edge Computing: Historias de una relación necesaria
 
-In this technical seminar, organized in 4 sessions, two mainly theoretical and two mainly practical, we will try to trace the approach path from IoT to edge computing, presenting, as a main result, the concept of TinyML, i.e. the use of machine learning in 1 mW devices.
+> "[XII Seminario de Invierno (tardío) CAPAP-H, Valencia, 6, 7 y 8 de abril de 2022](https://capap-h.ceta-ciemat.es/2022/02/22/xii-seminario-de-invierno-2022/)", Valencia, SPAIN
 
-We will start with a description of what the IoT is and what are its various components, focusing on two relevant communication protocols: LoRaWAN, as a low power communication standard and MQTT as a widely used protocol to connect devices and services in a more flexible way than the classical REST (HTTP) based solutions.
+En este seminario tecnico, organizado en 4 sesiones, dos principalmente teóricas y dos principalmente practicas se intentará trazar el camino de acercamiento del IoT al edge computing, presentando, como resultado principal, el concepto de TinyML, es decir el uso del machine learning en dispositivos de 1 mW.
 
-The next step, in the first practical session, will be to provide an overview of the data path, from the sensors through the different network components, gateways, networks servers, visualization platforms up to the "TIG stack" used to facilitate the collection, storage, visualization and generation of alerts from time series data.
+Se comenzará con una descripción de que es el IoT y cuales son sus varias componentes centrándonos en dos protocols de comunicación relevantes: LoRaWAN, como estándar de comunicación de baja potencia y MQTT como protocolo ampliamente utilizado para conectar dispositivos y servicios de una manera más flexible que las clásicas soluciones basadas en REST (HTTP).
 
-The next two sessions will justify the need for edge computing in IoT and describe TinyML, which is a rapidly growing area where machine learning technologies and applications, including hardware, algorithms and software, are capable of performing sensor data analysis on devices with extremely low power consumption, typically in the mW range and below, and thus enabling a variety of broader use cases targeting battery-powered devices. The theory session will describe the process of using the TensorFlow Lite libraries and devices such as the Arduino Nano 33 BLE Sense and the hands-on session will use the Edge Impulse platform, currently the leading development platform for ML on edge devices, to build a real-time model using the accelerometer, microphone or camera of a smartphone, how to collect data and train machine learning algorithms, and observe what happens live on the platform.
+El siguiente paso, en la primera sesión practica, será ofrecer una visión del camino de los datos, desde los sensores a través de las diferentes componentes de la red, gateways, networks servers, plataformas de visualización hasta llegar al “TIG stack” utilizado para facilitar la recopilación, el almacenamiento, la visualización y la generación de alertas a partir de series de datos temporales.
 
-## Schedule at "[XII Seminario de Invierno CAPAP-H](https://capap-h.ceta-ciemat.es/2022/02/22/xii-seminario-de-invierno-2022/)", Valencia, SPAIN
+En las siguientes dos sesiones, se justificará la necesitad del edge computing en IoT y se describirá TinyML, que es un area en rápido crecimiento donde tecnologías y aplicaciones de aprendizaje automático, que incluye hardware, algoritmos y software, son capaces de realizar análisis de datos de sensores en dispositivos con un consumo de energía extremadamente bajo, normalmente en el rango de los mW y menos, y por lo tanto permitiendo una variedad de casos de uso más amplios dirigidos a dispositivos que funcionan con baterías. Se describirá, en la sesión de teoría, cual es el proceso de uso utilizando las librerías TensorFlow Lite y dispositivos como el Arduino Nano 33 BLE Sense y, en la sesión practica se utilizará la plataforma Edge Impulse, actualmente la plataforma de desarrollo líder para el ML en dispositivos edge, para construir un modelo en tiempo real utilizando el acelerómetro, el micrófono o la cámara de un smartphone, como recopilar datos y entrenar algoritmos de aprendizaje automático, y observar lo que ocurre en directo en la plataforma.
 
-### Thursday 7 April 2022:
-* 10:00 – 11:30 [A brief introduction to IoT, LoRaWAN, and MQTT](https://github.com/pmanzoni/iotandendge/blob/main/slides/IoT_LoRaWAN_MQTT.pdf)
-* 15:30 – 17:30 (Lab.) [LoRaWAN and MQTT](https://hackmd.io/@capap-h2020/lorawanmqtt)
+## Programa
 
-### Friday 8 April 2022
-* 10:00 – 11:30 [A brief introduction to TinyML](https://github.com/pmanzoni/iotandendge/blob/main/slides/TinyML_CAPAH.pdf)
-* 12:00 – 13:30 (Lab.) [TinyML with Tensorflow light and Arduino](https://hackmd.io/@capap-h2020/tinymltlight)
-    - TinyML with Edgeimpulse
+### Jueves 7 de abril 2022
+* 10:00 – 11:30 Seminario técnico (Teoría)
+  * [A brief introduction to IoT, LoRaWAN, and MQTT](https://github.com/pmanzoni/iotandendge/blob/main/slides/IoT_LoRaWAN_MQTT.pdf)
+* 15:30 – 17:30 Seminario técnico (Laboratorio)
+  * [LoRaWAN and MQTT](https://hackmd.io/@capap-h2020/lorawanmqtt)
+
+### Viernes 8 de abril 2022
+* 10:00 – 11:30 Seminario técnico (Teoría)
+  * [A brief introduction to TinyML](https://github.com/pmanzoni/iotandendge/blob/main/slides/TinyML_CAPAH.pdf)
+  * [TinyML hands-on examples: TensorFlow Lite Micro](https://hackmd.io/@capap-h2020/tinymltlight)
+* 12:00 – 13:30 Seminario técnico (Laboratorio)
+  * [TinyML hands-on examples: Edge Impulse](https://hackmd.io/@capap-h2020/edgeimpulse)
