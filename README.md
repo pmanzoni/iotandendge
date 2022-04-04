@@ -20,7 +20,7 @@ En las siguientes dos sesiones, se justificará la necesitad del edge computing 
 
 ### Viernes 8 de abril 2022
 * 10:00 – 11:30 Seminario técnico (Teoría)
-  * [TinyML:  Machine Learning meets the Internet of Things](https://github.com/pmanzoni/iotandendge/blob/main/slides/TinyML_CAPAH.pdf)
+  * [TinyML:  Machine Learning meets the Internet of Things](https://github.com/pmanzoni/iotandendge/blob/main/slides/TinyML.pdf)
   * [TinyML hands-on examples: TensorFlow Lite Micro](https://hackmd.io/@capap-h2020/tinymltlight)
 * 12:00 – 13:30 Seminario técnico (Laboratorio)
   * [TinyML hands-on examples: Edge Impulse](https://hackmd.io/@capap-h2020/edgeimpulse)
