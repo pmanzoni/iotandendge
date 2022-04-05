@@ -78,7 +78,7 @@ dispatcher.add_handler(start_handler)
 getdata_handler = CommandHandler('getdata', getdata, pass_args=False)
 dispatcher.add_handler(getdata_handler)
 
-unknown_handler = MessageHandler(Filters.text & (~Filters.command), unknown)
+unknown_handler = MessageHandler(Filters.text | (~Filters.command), unknown)
 dispatcher.add_handler(unknown_handler)
 
 updater.start_polling()

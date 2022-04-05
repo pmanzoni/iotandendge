@@ -5,7 +5,7 @@
 import paho.mqtt.client as mqtt
 
 THE_BROKER = "test.mosquitto.org"
-THE_TOPIC = "PMtest/rndvalue"
+THE_TOPIC = "$SYS/#"
 CLIENT_ID = ""
 
 # The callback for when the client receives a CONNACK response from the server.
